@@ -3,12 +3,16 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage
   ],
   imports: [
+    StoreModule.provideStore(reducer),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
