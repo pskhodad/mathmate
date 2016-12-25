@@ -5,15 +5,16 @@ import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs/rx';
 
 import { qblob, State } from '../../app/reducers';
-import { AddQuestionsAction, SimilarQuestionAction } from '../../app/actions';
+import { /* AddQuestionsAction,*/ AddQuestionsReqAction, SimilarQuestionAction } from '../../app/actions';
 
 
 import { Store } from '@ngrx/store';
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  changeDetection: ChangeDetectionStrategy.OnPush  
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
 
@@ -29,14 +30,15 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.store.dispatch(new AddQuestionsAction({num: 1}));
+    this.store.dispatch(new AddQuestionsReqAction({num: 1}));
+    //this.store.dispatch(new AddQuestionsReqAction({num: 1}));
     setTimeout(() => {
-        this.store.dispatch(new AddQuestionsAction({num: 10}));
+        this.store.dispatch(new AddQuestionsReqAction({num: 10}));
     }, 1000);
   }
 
   doInfinite(infiniteScroll) {
-    this.store.dispatch(new AddQuestionsAction({ num: 10, scroll: infiniteScroll }));
+    this.store.dispatch(new AddQuestionsReqAction({ num: 10, scroll: infiniteScroll }));
   }
 
   onSimilar(index: number, tplname: string) {

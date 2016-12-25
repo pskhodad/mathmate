@@ -31,7 +31,7 @@ function getQuestions(num: number) {
 }
 
 export function reducer(state = initialState, action: Actions): State {
-//    console.log(action);
+    console.log(action);
     switch (action.type) {
         case ActionTypes.ADD_QUESTIONS: {
             let newQlist = getQuestions((action.payload as AddQuestionParam).num);
