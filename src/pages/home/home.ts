@@ -5,10 +5,12 @@ import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs/rx';
 
 import { qblob, State } from '../../app/reducers';
-import { /* AddQuestionsAction,*/ AddQuestionsReqAction, SimilarQuestionAction } from '../../app/actions';
+import { AddQuestionsAction, /* AddQuestionsReqAction, */ SimilarQuestionAction } from '../../app/actions';
 
 
 import { Store } from '@ngrx/store';
+
+import { WebWorkerProvider } from '../../app/effects';
 
 
 @Component({
@@ -22,23 +24,32 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public store: Store<State>
+    public store: Store<State>,
+    public mmWorker: WebWorkerProvider
     ) {
+    console.log(mmWorker);  
     this.qlist$ = this.store.select((state) => {
       return state.qlist;
     });
   }
 
   ngOnInit() {
-    this.store.dispatch(new AddQuestionsReqAction({num: 1}));
+    //this.store.dispatch(new AddQuestionsReqAction({num: 1}));
     //this.store.dispatch(new AddQuestionsReqAction({num: 1}));
     setTimeout(() => {
-        this.store.dispatch(new AddQuestionsReqAction({num: 10}));
-    }, 1000);
+        //console.log('dispatching');
+        //this.store.dispatch(new AddQuestionsReqAction({num: 10}));
+      this.mmWorker
+        .call('slowRandomNumber')
+        .then((val) => {
+          console.log(val);
+          this.store.dispatch(new AddQuestionsAction({ num: 10 }));
+        });
+    }, 100);
   }
 
   doInfinite(infiniteScroll) {
-    this.store.dispatch(new AddQuestionsReqAction({ num: 10, scroll: infiniteScroll }));
+    this.store.dispatch(new AddQuestionsAction({ num: 10, scroll: infiniteScroll }));
   }
 
   onSimilar(index: number, tplname: string) {

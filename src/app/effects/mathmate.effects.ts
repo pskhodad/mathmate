@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { /*Effect,*/ Actions } from '@ngrx/effects';
+//import { Observable } from 'rxjs/Observable';
 //import { Action } from '@ngrx/store';
-import { ActionTypes, AddQuestionsReqAction, AddQuestionsAction } from '../actions';
+//import { ActionTypes, AddQuestionsReqAction/*, AddQuestionsAction */} from '../actions';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/from';
@@ -75,34 +75,34 @@ export class MathMateEffects {
         public actions$: Actions,
         public mmWorker: WebWorkerProvider
     ) {
-//        console.log(mmWorker);
-//       var ww = new Worker("worker.js");
        console.log(mmWorker);
     }
 
+/*
     @Effect()
     addQuestions$: Observable<any> = this.actions$
         .ofType(ActionTypes.ADD_QUESTIONS_REQ)
-//        .map((action: AddQuestionsReqAction) => {
-//            this.mmWorker.call('slowRandomNumber').then(val => console.log(val));
-//            return new AddQuestionsAction(action.payload)
-//        }) 
-        .map((action: AddQuestionsReqAction) => action.payload)
+        .map((action: AddQuestionsReqAction) => { console.log(action); return action.payload });
+*/
+
+/*
+        .map((action: AddQuestionsReqAction) => { return action.payload })
         .mergeMap(payload => {
+            console.log('providing promise');
             let prom = new Promise((resolve, reject) => {
                 console.log('firing promise');
                 this.mmWorker.call('slowRandomNumber').then(val => resolve({
                     val: val,
-                    num: payload.num
+                    num: payload.num,
+                    scroll: payload.scroll
                 }));
-                //setTimeout(() => { resolve(42) }, 5000);                 
             });
-            //var subscription = Observable.fromPromise(prom);
             return Observable.fromPromise(prom); 
         })
         .map((val) => {
             console.log(val);
-            return new AddQuestionsAction({num: val.num}); 
+            return new AddQuestionsAction({num: val.num, scroll: val.scroll}); 
         } )
+*/
 
 }
