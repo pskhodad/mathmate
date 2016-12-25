@@ -3,13 +3,15 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { KatexCmp } from './components/katex.cmp';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    KatexCmp
   ],
   imports: [
     StoreModule.provideStore(reducer),
