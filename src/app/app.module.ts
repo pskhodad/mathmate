@@ -4,11 +4,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+//import { EffectsModule } from '@ngrx/effects';
 
 import { KatexCmp } from './components/katex.cmp';
 
-import { MathMateEffects } from './effects'
+//import { MathMateEffects } from './effects'
 import { reducer } from './reducers';
 
 //import { WebWorkerModule } from 'angular2-webworker';
@@ -23,7 +23,7 @@ import { WebWorkerProvider } from './effects';
   ],
   imports: [
     StoreModule.provideStore(reducer),
-    EffectsModule.run(MathMateEffects),
+    //EffectsModule.run(MathMateEffects),
     //WebWorkerModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],

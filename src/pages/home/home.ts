@@ -21,13 +21,12 @@ import { WebWorkerProvider } from '../../app/effects';
 export class HomePage {
 
   public qlist$: Observable<qblob[]>;
+  public mmWorker: WebWorkerProvider;
 
   constructor(
     public navCtrl: NavController,
-    public store: Store<State>,
-    public mmWorker: WebWorkerProvider
+    public store: Store<State>
     ) {
-    console.log(mmWorker);  
     this.qlist$ = this.store.select((state) => {
       return state.qlist;
     });
@@ -36,20 +35,25 @@ export class HomePage {
   ngOnInit() {
     //this.store.dispatch(new AddQuestionsReqAction({num: 1}));
     //this.store.dispatch(new AddQuestionsReqAction({num: 1}));
-    setTimeout(() => {
-        //console.log('dispatching');
-        //this.store.dispatch(new AddQuestionsReqAction({num: 10}));
+      
+      this.mmWorker = new WebWorkerProvider();
+      
       this.mmWorker
         .call('slowRandomNumber')
-        .then((val) => {
-          console.log(val);
-          this.store.dispatch(new AddQuestionsAction({ num: 10 }));
+        .then((resp) => {
+          console.log((resp as any).qlist);
+          this.store.dispatch(new AddQuestionsAction((resp as any).qlist));
         });
-    }, 100);
   }
 
   doInfinite(infiniteScroll) {
-    this.store.dispatch(new AddQuestionsAction({ num: 10, scroll: infiniteScroll }));
+      this.mmWorker
+        .call('slowRandomNumber')
+        .then((resp) => {
+          console.log((resp as any).qlist);
+          this.store.dispatch(new AddQuestionsAction((resp as any).qlist));
+        });
+      infiniteScroll.complete();  
   }
 
   onSimilar(index: number, tplname: string) {

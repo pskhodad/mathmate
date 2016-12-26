@@ -72,10 +72,10 @@ export class WebWorkerProvider {
 export class MathMateEffects {
 
     constructor(
-        public actions$: Actions,
-        public mmWorker: WebWorkerProvider
+        public actions$: Actions
+//        public mmWorker: WebWorkerProvider
     ) {
-       console.log(mmWorker);
+//       console.log(mmWorker);
     }
 
 /*

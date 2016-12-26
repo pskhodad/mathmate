@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
+//import { qblob } from '../reducers';
 
 export interface AddQuestionParam {
-    num: number,
-    scroll?: any
+    qlist: Array<any>;
 }
 
 export interface AddQuestionReqParam {
@@ -24,7 +24,7 @@ export const ActionTypes = {
 export class AddQuestionsAction implements Action {
   type = ActionTypes.ADD_QUESTIONS;
 
-  constructor(public payload: AddQuestionParam) { }
+  constructor(public payload: Array<any>) { }
 }
 
 export class AddQuestionsReqAction implements Action {
